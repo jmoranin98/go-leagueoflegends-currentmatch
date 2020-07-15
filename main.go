@@ -12,8 +12,9 @@ func main() {
 	var token string = os.Getenv("RIOT_TOKEN")
 
 	client := &http.Client{}
+	summonerName := os.Args[1]
 
-	summonerReq, err := http.NewRequest("GET", baseURL+"/lol/summoner/v4/summoners/by-name/resep", nil)
+	summonerReq, err := http.NewRequest("GET", baseURL+"/lol/summoner/v4/summoners/by-name/"+summonerName, nil)
 	if err != nil {
 		panic(err)
 	}
@@ -32,7 +33,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	matchReq.Header.Add("X-Riot-Token", "RGAPI-d09bbe27-8979-428a-a2f1-3f88f87e1b93")
+	matchReq.Header.Add("X-Riot-Token", token)
 	matchResp, err := client.Do(matchReq)
 	if err != nil {
 		panic(err)
